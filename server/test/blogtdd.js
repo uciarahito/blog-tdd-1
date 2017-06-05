@@ -48,10 +48,10 @@ describe('user', () => {
       chai.request(server)
       .post('/signup')
       .send({
-        name: "Uci Arahito",
-        username: "arahito",
-        password: "arahito",
-        email: "arahito@gmail.com"
+        name: "Butet Silaen",
+        username: "butet",
+        password: "butet",
+        email: "butet@gmail.com"
       })
       .end((error, res) => {
         console.log(res.body);
@@ -62,10 +62,38 @@ describe('user', () => {
         res.body.should.have.property('password')
         res.body.should.have.property('email')
 
-        res.body.name.should.equal('Uci Arahito')
+        res.body.name.should.equal('Butet Silaen')
 
         done()
       })
+    })
+  })
+
+  // $2a$10$QnNQYJnYUADmhDcusKcHoOnYBJ.q2LqvcSxnZJZNrhjCknbmYoYua
+  describe('POST - login user', () => {
+    it('should login user', (done) => {
+      chai.request(server)
+      .post('/signin')
+      .send({
+        username: "arahito",
+        password: "arahito"
+      })
+      .end((error, res) => {
+        console.log("******",res.body);
+
+        // res.should.have.status(200)
+        // res.body.should.be.a('object')
+        // res.body.should.have.property('message')
+        // res.body.should.have.property('id')
+        // res.body.should.have.property('username')
+        // res.body.should.have.property('token')
+        //
+        // res.body.message.should.equal('SignIn success')
+        // res.body.username.should.equal('butet')
+
+        done()
+      })
+
     })
   })
 
@@ -150,8 +178,7 @@ describe('blog', () => {
         "updated": new Date()
       })
       .end((error, res) => {
-        console.log(res);
-        // console.log(res.body);
+        console.log(res.body);
 
         res.should.have.status(200)
         res.body.should.be.a('object')
@@ -173,8 +200,7 @@ describe('blog', () => {
       chai.request(server)
       .delete(`/deleteBlog/${idBlog}`)
       .end((error, res) => {
-        console.log(res);
-        // console.log(res.body);
+        console.log(res.body);
 
         res.should.have.status(200)
         res.body.should.be.a('object')
@@ -183,6 +209,8 @@ describe('blog', () => {
         res.body.should.have.property('content')
         res.body.should.have.property('created')
         res.body.should.have.property('updated')
+
+        res.body.title.should.equal('Sunshine becomes you')
 
         done()
       })

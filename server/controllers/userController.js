@@ -26,6 +26,9 @@ methods.signIn = (req, res) => {
     username: req.body.username
   })
   .then(record => {
+    console.log("--- user found");
+    console.log(req.body);
+
     console.log('Record data user login');
     console.log(record);
     if (bCrypt.compareSync(pwd, record.password)) {
